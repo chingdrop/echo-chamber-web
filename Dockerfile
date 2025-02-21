@@ -1,4 +1,4 @@
-FROM python:3.12.9-slim
+FROM python:3.12.9-bullseye
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -16,4 +16,4 @@ COPY . /app/
 
 EXPOSE 8000
 
-CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
