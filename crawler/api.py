@@ -55,7 +55,13 @@ class RestAdapter:
             response.raise_for_status()
             self.logger.debug(f'Status [{response.status_code}] - {response.reason}')
             if response:
-                return response.json()
+                content_type = response.headers.get('Content-Type', '').lower()
+                if 'application/json' in content_type:
+                    return response.json()
+                elif 'text/html' in content_type:
+                    return response.text
+                else:
+                    return response.content
         except requests.exceptions.HTTPError as errh:
             self.logger.error(f"HTTP Error: {errh}")
         except requests.exceptions.ConnectionError as errc:
