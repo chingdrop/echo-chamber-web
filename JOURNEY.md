@@ -18,4 +18,11 @@
 - [x] Add Celery to be used for asynchronous task handling.
 	- [x] Configure Django to use celery.
 - [x] Add Redis and Celery services to the docker-compose.
+
 ## Rejected
+
+## Articles
+- Django Tutorial - https://docs.djangoproject.com/en/5.1/intro/tutorial01/
+- Django, Postgres and Docker - https://learndjango.com/tutorials/django-docker-and-postgresql-tutorial
+- Django and Celery - https://realpython.com/asynchronous-tasks-with-django-and-celery/
+- 
