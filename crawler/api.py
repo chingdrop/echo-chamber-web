@@ -1,11 +1,12 @@
 import logging
 import requests
+from bs4 import BeautifulSoup
 
 
 class RestAdapter:
     def __init__(
             self,
-            base_url: str,
+            base_url: str='',
             headers: dict=None,
             auth=None,
             logger=logging.getLogger()
@@ -47,7 +48,7 @@ class RestAdapter:
             dict: JSON serialized response body or None if an error occurs.
         """
         self.logger.debug(f'Request [{method}] - {self.base_url} {endpoint}')
-        url = f"{self.base_url}{endpoint}"
+        url = self.base_url + endpoint
         req = requests.Request(method, url, headers=self.session.headers, params=params, data=data)
         prep_req = self.session.prepare_request(req)
         try:
@@ -118,3 +119,17 @@ class RestAdapter:
             dict: JSON serialized response body or None if an error occurs.
         """
         return self._send_request('DELETE', endpoint, params=params)
+
+
+class WebCrawler:
+    def __init__(self, base_url: str="", logger=logging.getLogger()):
+        self.rest = RestAdapter(base_url, logger=logger)
+
+    def get_robot(self,):
+        return self.rest.get('/robots.txt')
+    
+    def get_next_links(self, url: str=""):
+        res = self.rest.get(url)
+        soup = BeautifulSoup(res, 'html.parser')
+        links = soup.select("a[href]")
+        return [link['href'] for link in links]
