@@ -1,6 +1,7 @@
 import logging
 import requests
 from bs4 import BeautifulSoup
+from pathlib import Path
 
 
 class RestAdapter:
@@ -123,13 +124,34 @@ class RestAdapter:
 
 class WebCrawler:
     def __init__(self, base_url: str="", logger=logging.getLogger()):
+        self.data_dir = Path.cwd() / 'crawler' / 'data'
         self.rest = RestAdapter(base_url, logger=logger)
+    
+    def _snap_page(self, page, file):
+        with open(file, 'w', encoding='utf-8') as f:
+            f.write(page)
+    
+    def _get_page(self, file):
+        with open(file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        return content
 
     def get_robot(self,):
         return self.rest.get('/robots.txt')
     
-    def get_next_links(self, url: str=""):
-        res = self.rest.get(url)
-        soup = BeautifulSoup(res, 'html.parser')
-        links = soup.select("a[href]")
-        return [link['href'] for link in links]
+    def snap_home(self,):
+        res = self.rest.get('')
+        self._snap_page(res, self.data_dir / 'home_page.html')
+    
+    def snap_shop(self,):
+        home = self._get_page(self.data_dir / 'home_page.html')
+        soup = BeautifulSoup(home, 'html.parser')
+        shop_link = soup.find('a', string='Shop').get('href')
+        res = self.rest.get(shop_link)
+        self._snap_page(res, self.data_dir / 'shop_page.html')
+
+
+wc = WebCrawler('https://healthishot.co')
+home_file = Path.cwd() / 'crawler' / 'data' / 'home_page.html'
+wc.snap_home()
+wc.snap_shop()
