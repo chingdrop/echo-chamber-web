@@ -1,10 +1,10 @@
+import logging
 from celery import shared_task
 
-from echochamber.logger import setup_logger
 from crawler.api import WebCrawler
 
 
-logger = setup_logger('crawler-tasks', level='debug')
+logger = logging.getLogger('crawler')
 
 @shared_task
 def crawl_website(url):

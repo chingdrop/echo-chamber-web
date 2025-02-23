@@ -1,5 +1,8 @@
+import logging
 from pathlib import Path
 
+
+logger = logging.getLogger('django')
 
 def save_text_to_file(path: Path, content: str, encoding: str=""):
     """
@@ -12,7 +15,7 @@ def save_text_to_file(path: Path, content: str, encoding: str=""):
     """
     if not path.parent.exists():
         path.parent.mkdir(parents=True)
-        print(f"The directory {str(path)} was created.")
+        logger.debug(f"The directory {str(path)} was created.")
 
     with path.open('w', encoding=encoding) as file:
         file.write(content)
@@ -26,10 +29,10 @@ def delete_files_in_directory(path: Path):
         directory_path (str): The path to the directory whose files are to be deleted.
     """
     if not path.exists() or not path.is_dir():
-        print(f"The directory {str(path)} does not exist or is not a directory.")
+        logger.debug(f"The directory {str(path)} does not exist or is not a directory.")
         return
     
     for file in path.glob('*'):
         if file.is_file():
             file.unlink()
-            print(f"Deleted: {file}")
+            logger.debug(f"Deleted: {file}")
