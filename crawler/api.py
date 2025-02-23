@@ -4,6 +4,8 @@ import requests
 from bs4 import BeautifulSoup
 from pathlib import Path
 
+from echochamber.helpers import save_text_to_file, delete_files_in_directory
+
 
 class RestAdapter:
     def __init__(
@@ -125,21 +127,22 @@ class RestAdapter:
 
 class WebCrawler:
     def __init__(self, logger=logging.getLogger()):
+        self.data_dir = Path.cwd() / 'crawler' / 'data'
+        delete_files_in_directory(self.data_dir)
         self.logger = logger
         self.rest = RestAdapter(logger=logger)
 
     def get_robot(self,):
         return self.rest.get('/robots.txt')
     
-    def snap_url(self, url, path):
+    def snap_url(self, url):
         self.logger.debug(f'Getting contents of {url}')
         res = self.rest.get(url)
         pattern = r'(https?:\/\/)([a-zA-Z0-9-]+)\.[a-z]{2,}\/?(.[a-zA-Z0-9-]+)?'
         search = re.search(pattern, url)
         file_name = f'{search.group(2)}_{search.group(3) if search.group(3) else ''}.html'
         self.logger.debug(f'Saving HTML to {file_name}')
-        with open(path / file_name, 'w', encoding='utf-8') as f:
-            f.write(res)
+        save_text_to_file(self.data_dir / file_name, content=res, encoding='utf-8')
         return res
     
     def get_next_links(self, url):
