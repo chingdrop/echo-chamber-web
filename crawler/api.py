@@ -137,12 +137,16 @@ class WebCrawler:
     
     def snap_url(self, url):
         self.logger.debug(f'Getting contents of {url}')
+        path = ""
         res = self.rest.get(url)
-        pattern = r'(https?:\/\/)([a-zA-Z0-9-]+)\.[a-z]{2,}\/?(.[a-zA-Z0-9-]+)?'
+        pattern = r'^https?:\/\/([a-zA-Z0-9-]+)\.[a-z]{2,}(\/[a-zA-Z0-9-\/]+)?$'
         search = re.search(pattern, url)
-        file_name = f'{search.group(2)}_{search.group(3) if search.group(3) else ''}.html'
-        self.logger.debug(f'Saving HTML to {file_name}')
-        save_text_to_file(self.data_dir / file_name, content=res, encoding='utf-8')
+        if search:
+            if search.group(2):
+                path = search.group(2).replace('/', '_')
+            file_name = f'{search.group(1)}{path}.html'
+            self.logger.debug(f'Saving HTML to {file_name}')
+            save_text_to_file(self.data_dir / file_name, content=res, encoding='utf-8')
         return res
     
     def get_next_links(self, url):
@@ -152,7 +156,7 @@ class WebCrawler:
         urls = []
         for link in links:
             href = link['href']
-            https_pattern = r'(https?:\/\/)([a-zA-Z0-9-]+)\.[a-z]{2,}\/?(.[a-zA-Z0-9-]+)?'
+            https_pattern = r'^https?:\/\/([a-zA-Z0-9-]+)\.[a-z]{2,}(\/[a-zA-Z0-9-\/]+)?$'
             match = re.match(https_pattern, href)
             if match:
                 urls.append(match.group())
