@@ -1,3 +1,4 @@
+import re
 import logging
 import requests
 from bs4 import BeautifulSoup
@@ -143,9 +144,19 @@ class WebCrawler:
         res = self.rest.get(url)
         soup = BeautifulSoup(res, 'html.parser')
         links = soup.select("a[href]")
-        return [link['href'] for link in links]
+        urls = []
+        for link in links:
+            href = link['href']
+            https_pattern = r'^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$'
+            match = re.match(https_pattern, href)
+            if match:
+                urls.append(match.group())
+            elif '/' in href and href != '/':
+                urls.append(url + href)
+        return urls
 
 
-wc = WebCrawler('https://healthishot.co')
+wc = WebCrawler()
 home_file = Path.cwd() / 'crawler' / 'data' / 'home_page.html'
-wc.snap_url('https://healthishot.co', home_file)
+# wc.snap_url('https://healthishot.co', home_file)
+print(wc.get_next_links('https://healthishot.co'))
