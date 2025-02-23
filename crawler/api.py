@@ -127,27 +127,27 @@ class WebCrawler:
     def __init__(self, logger=logging.getLogger()):
         self.data_dir = Path.cwd() / 'crawler' / 'data'
         self.rest = RestAdapter(logger=logger)
-    
-    def _snap_page(self, page, file):
-        with open(file, 'w', encoding='utf-8') as f:
-            f.write(page)
 
     def get_robot(self,):
         return self.rest.get('/robots.txt')
     
-    def snap_url(self, url, file):
+    def snap_url(self, url, path):
         res = self.rest.get(url)
-        self._snap_page(res, file)
+        pattern = r'(https?:\/\/)([a-zA-Z0-9-]+)\.[a-z]{2,}\/?(.[a-zA-Z0-9-]+)?'
+        search = re.search(pattern, url)
+        file_name = f'{search.group(2)}_{search.group(3) if search.group(3) else ''}.html'
+        with open(path / file_name, 'w', encoding='utf-8') as f:
+            f.write(res)
         return res
     
     def get_next_links(self, url):
         res = self.rest.get(url)
         soup = BeautifulSoup(res, 'html.parser')
-        links = soup.select("a[href]")
+        links = soup.find_all('a')
         urls = []
         for link in links:
             href = link['href']
-            https_pattern = r'^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$'
+            https_pattern = r'(https?:\/\/)([a-zA-Z0-9-]+)\.[a-z]{2,}\/?(.[a-zA-Z0-9-]+)?'
             match = re.match(https_pattern, href)
             if match:
                 urls.append(match.group())
@@ -157,6 +157,9 @@ class WebCrawler:
 
 
 wc = WebCrawler()
-home_file = Path.cwd() / 'crawler' / 'data' / 'home_page.html'
+data_dir = Path.cwd() / 'crawler' / 'data'
 # wc.snap_url('https://healthishot.co', home_file)
-print(wc.get_next_links('https://healthishot.co'))
+wc.snap_url('https://healthishot.co', data_dir)
+urls = wc.get_next_links('https://healthishot.co')
+for url in urls:
+    wc.snap_url(url, data_dir)
