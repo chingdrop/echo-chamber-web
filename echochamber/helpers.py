@@ -6,11 +6,12 @@ def save_text_to_file(path: Path, content: str, encoding: str=""):
     Saves the given text content to files in the specified directory.
     
     Parameters:
-        directory_path (str): The path to the directory where files will be saved.
-        files_content (dict): A dictionary where keys are filenames and values are the text to save.
+        path (Path): The path to the directory where files will be saved.
+        content (str): A dictionary where keys are filenames and values are the text to save.
+        encoding (str): Encoding library to use when saving file.
     """
-    if not path.exists():
-        path.mkdir(parents=True)
+    if not path.parent.exists():
+        path.parent.mkdir(parents=True)
         print(f"The directory {str(path)} was created.")
 
     with path.open('w', encoding=encoding) as file:
