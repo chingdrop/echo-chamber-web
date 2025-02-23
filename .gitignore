@@ -1,6 +1,7 @@
 # --- Custom Ignores --- #
 data/
-crawler/data
+logs/
+crawler/data/
 .obsidian/
 
 # Byte-compiled / optimized / DLL files
