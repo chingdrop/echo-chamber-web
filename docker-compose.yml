@@ -42,7 +42,7 @@ services:
   echo_front:
     build: ./echo-chamber-front
     ports:
-      - "4200:4200"
+      - "80:80"
     depends_on:
       - echo_web
     networks:
