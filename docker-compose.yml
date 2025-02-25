@@ -16,10 +16,10 @@ services:
       - backend
 
   echo_web:
-    build: .
+    build: ./echo-chamber-web
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - ./echo-chamber-web:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -29,13 +29,22 @@ services:
       - backend
 
   celery:
-    build: .
+    build: ./echo-chamber-web
     command: celery -A echochamber worker --loglevel=info
     volumes:
-      - .:/app
+      - .echo-chamber-web:/app
     depends_on:
       - echo_db
       - redis
+    networks:
+      - backend
+
+  echo_front:
+    build: ./echo-chamber-front
+    ports:
+      - "4200:4200"
+    depends_on:
+      - echo_web
     networks:
       - backend
 
