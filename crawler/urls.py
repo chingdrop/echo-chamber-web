@@ -1,3 +1,4 @@
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from . import views
@@ -6,4 +7,6 @@ from . import views
 router = DefaultRouter()
 router.register(r'results', views.ResultViewSet)
 
-urlpatterns = router.urls
+urlpatterns = router.urls + [
+    path(route='start/', view=views.start_crawl, name='start_crawl'),
+]
