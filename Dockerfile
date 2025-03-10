@@ -17,8 +17,6 @@ COPY . /app/
 ### Debugger
 FROM base AS debug
 
-RUN pip install debugpy
-
 EXPOSE 8000
 EXPOSE 5678
 
