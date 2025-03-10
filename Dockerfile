@@ -14,17 +14,6 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . /app/
 
-### Debugger
-FROM base AS debug
-
-EXPOSE 8000
-EXPOSE 5678
-
-CMD ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "manage.py", "runserver", "0.0.0.0:8000"]
-
-### Main
-FROM base AS main
-
 EXPOSE 8000
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

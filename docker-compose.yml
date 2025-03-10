@@ -16,10 +16,7 @@ services:
       - backend
 
   web:
-    build: 
-      context: ./echo-chamber-web
-      dockerfile: Dockerfile
-      target: main
+    build: ./echo-chamber-web
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - ./echo-chamber-web:/app
@@ -32,10 +29,7 @@ services:
       - backend
 
   celery:
-    build: 
-      context: ./echo-chamber-web
-      dockerfile: Dockerfile
-      target: main
+    build: ./echo-chamber-web
     command: ["celery", "-A", "echochamber.celery", "worker", "--loglevel=info"]
     volumes:
       - ./echo-chamber-web:/app

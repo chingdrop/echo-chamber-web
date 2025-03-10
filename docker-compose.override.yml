@@ -1,10 +1,7 @@
 services:
   web:
-    build: 
-      context: ./echo-chamber-web
-      dockerfile: Dockerfile
-      target: debug
-    command: ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "manage.py", "runserver", "0.0.0.0:8000"]
+    build: ./echo-chamber-web
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     ports:
       - "8000:8000"
       - "5678:5678"
