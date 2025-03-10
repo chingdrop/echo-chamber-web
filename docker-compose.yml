@@ -31,22 +31,6 @@ services:
     networks:
       - backend
 
-  debug:
-    build: 
-      context: ./echo-chamber-web
-      dockerfile: Dockerfile
-      target: debug
-    command: ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "-m"]
-    volumes:
-      - ./echo-chamber-web:/app
-    ports:
-      - "5678:5678"
-    depends_on:
-      - db
-      - redis
-    networks:
-      - backend
-
   celery:
     build: 
       context: ./echo-chamber-web
