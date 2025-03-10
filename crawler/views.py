@@ -1,9 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import viewsets
 
-from crawler.tasks import crawl_website
+from .models import Result
+from .serializers import ResultSerializer
+# from crawler.tasks import crawl_website
 
 
-def start_crawl(request):
-    crawl_website('https://healthishot.co')
-    return HttpResponse("This is a test page from the new app!")
+class ResultViewSet(viewsets.ModelViewSet):
+    queryset = Result.objects.all()
+    serializer_class = ResultSerializer
