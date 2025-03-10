@@ -17,7 +17,7 @@ services:
 
   web:
     build: ./echo-chamber-web
-    command: python manage.py runserver 0.0.0.0:8000
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - ./echo-chamber-web:/app
     ports:
@@ -30,19 +30,20 @@ services:
 
   celery:
     build: ./echo-chamber-web
-    command: celery -A echochamber worker --loglevel=info
+    command: ["celery", "-A", "echochamber.celery", "worker", "--loglevel=info"]
     volumes:
-      - .echo-chamber-web:/app
+      - ./echo-chamber-web:/app
     depends_on:
       - db
       - redis
+      - web
     networks:
       - backend
 
   front:
     build: ./echo-chamber-front
     ports:
-      - "4200:4200"
+      - "80:80"
     depends_on:
       - web
     networks:
