@@ -16,7 +16,10 @@ services:
       - backend
 
   web:
-    build: ./echo-chamber-web
+    build: 
+      context: ./echo-chamber-web
+      dockerfile: Dockerfile
+      target: main
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - ./echo-chamber-web:/app
@@ -28,8 +31,27 @@ services:
     networks:
       - backend
 
+  debug:
+    build: 
+      context: ./echo-chamber-web
+      dockerfile: Dockerfile
+      target: debug
+    command: ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "-m"]
+    volumes:
+      - ./echo-chamber-web:/app
+    ports:
+      - "5678:5678"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - backend
+
   celery:
-    build: ./echo-chamber-web
+    build: 
+      context: ./echo-chamber-web
+      dockerfile: Dockerfile
+      target: main
     command: ["celery", "-A", "echochamber.celery", "worker", "--loglevel=info"]
     volumes:
       - ./echo-chamber-web:/app
