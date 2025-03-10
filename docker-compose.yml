@@ -1,5 +1,5 @@
 services:
-  echo_db:
+  db:
     image: postgres:17.3
     volumes:
       - ./data/db:/var/lib/postgresql/data
@@ -15,7 +15,7 @@ services:
     networks:
       - backend
 
-  echo_web:
+  web:
     build: ./echo-chamber-web
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -23,7 +23,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - echo_db
+      - db
       - redis
     networks:
       - backend
@@ -34,17 +34,17 @@ services:
     volumes:
       - .echo-chamber-web:/app
     depends_on:
-      - echo_db
+      - db
       - redis
     networks:
       - backend
 
-  echo_front:
+  front:
     build: ./echo-chamber-front
     ports:
-      - "80:80"
+      - "4200:4200"
     depends_on:
-      - echo_web
+      - web
     networks:
       - backend
 
