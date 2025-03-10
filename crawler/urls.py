@@ -1,15 +1,9 @@
-from django.urls import path
-from django.http import HttpRequest
+from rest_framework.routers import DefaultRouter
 
 from . import views
 
 
-urlpatterns = [
-    path(
-        route='start',
-        view=views.start_crawl,
-        name='start_crawl'
-    ),
-]
+router = DefaultRouter()
+router.register(r'results', views.ResultViewSet)
 
-app_name = 'crawler'
+urlpatterns = router.urls
