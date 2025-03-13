@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 SECRET_KEY_FALLBACKS = ["django-insecure-1u5clpkwc--c2=e-)e^701y3u&u((qfmz+lbrzzm(o#i(27v2)"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', 'True', 'TRUE', '1', 'y', 'yes', 'Yes', 'YES+')
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', 'True', 'TRUE', '1', 'y', 'yes', 'Yes', 'YES')
 
 ALLOWED_HOSTS = []
 
