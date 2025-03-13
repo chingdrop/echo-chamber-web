@@ -22,6 +22,7 @@ services:
       - ./echo-chamber-web:/app
     ports:
       - "8000:8000"
+    restart: always
     depends_on:
       - db
       - redis
@@ -33,6 +34,7 @@ services:
     command: ["celery", "-A", "echochamber.celery", "worker", "--loglevel=info"]
     volumes:
       - ./echo-chamber-web:/app
+    restart: always
     depends_on:
       - db
       - redis
@@ -44,6 +46,7 @@ services:
     build: ./echo-chamber-front
     ports:
       - "80:80"
+    restart: always
     depends_on:
       - web
     networks:
