@@ -21,5 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('crawler/', include('crawler.urls')),
+    path('api/crawler/', include('crawler.urls')),
 ]
