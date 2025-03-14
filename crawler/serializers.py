@@ -1,9 +1,21 @@
 from rest_framework import serializers
 
-from .models import Result
+from .models import CrawlConfig, CrawlHistory, CrawlResult
 
 
-class ResultSerializer(serializers.ModelSerializer):
+class CrawlConfigSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Result
-        fields = ['id', 'crawl_name', 'target_link', 'results_json']
+        model = CrawlConfig
+        fields = '__all__'
+
+
+class CrawlHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CrawlHistory
+        fields = '__all__'
+
+
+class CrawlResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CrawlResult
+        fields = '__all__'

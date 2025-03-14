@@ -1,18 +1,19 @@
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 
-from .models import Result
-from .serializers import ResultSerializer
-from crawler.tasks import crawl_website
+from .models import CrawlConfig, CrawlHistory, CrawlResult
+from .serializers import CrawlConfigSerializer, CrawlHistorySerializer, CrawlResultSerializer
 
 
-@api_view(['GET'])
-def start_crawl(request):
-    crawl_website('https://healthishot.co')
-    return Response({'message': 'Test function view!'})
+class CrawlConfigViewSet(viewsets.ModelViewSet):
+    queryset = CrawlConfig.objects.all()
+    serializer_class = CrawlConfigSerializer
 
 
-class ResultViewSet(viewsets.ModelViewSet):
-    queryset = Result.objects.all()
-    serializer_class = ResultSerializer
+class CrawlHistoryViewSet(viewsets.ModelViewSet):
+    queryset = CrawlHistory.objects.all()
+    serializer_class = CrawlHistorySerializer
+
+
+class CrawlResultViewSet(viewsets.ModelViewSet):
+    queryset = CrawlResult.objects.all()
+    serializer_class = CrawlResultSerializer
