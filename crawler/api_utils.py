@@ -3,30 +3,29 @@ import logging
 
 
 class RestAdapter:
+    """Rest adapter class makes interacting with APIs easy.
+
+    Args:
+        base_url (str): The base URL for the API
+        headers (dict): Default headers (optional)
+        auth (Any): Authentication information (optional)
+        logger (Logger): Custom logger object (optional)
+    """
     def __init__(
             self,
             base_url: str='',
-            headers: dict=None,
+            headers: dict={},
             auth=None,
-            logger=logging.getLogger()
+            logger=None
     ):
-        """Initialize the RequestHandler instance.
-
-        Args:
-            base_url (str): The base URL for the API
-            headers (dict): Default headers (optional)
-            auth: Authentication information (optional)
-        """
         self.base_url = base_url
-        self.headers = headers if headers else {}
-        self.auth = auth
-        self.logger = logger
+        self.logger = logger or logging.getLogger(__name__)
 
         self.session = requests.Session()
-        if self.auth:
-            self.session.auth = self.auth
-        if self.headers:
-            self.session.headers.update(self.headers)
+        if auth:
+            self.session.auth = auth
+        if headers:
+            self.session.headers.update(headers)
 
     def _send_request(
             self,
