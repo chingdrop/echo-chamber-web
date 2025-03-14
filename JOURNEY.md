@@ -2,13 +2,18 @@
 ## To Do List
 
 ### Infrastructure
-- [ ] Determine if the current docker-compose setup is best for running both Django and Angular.
-- [ ] Better optimize Docker image build.
-
-
+- [ ] Determine if the current docker-compose setup is best for running both Django and Angular projects
 ### Code
- - [ ] Determine a more secure way of storing the Django secret key.
+- [ ] Determine the best way of incorporating the initial crawl prompt to the result model
+	- [ ] Find a better name to describe the 'result' object
+- [ ] Fix the problem with the start crawler view not having a queryset
+
 ## Completed
+- [x] Better optimize Docker image build.
+- [x] Determine a more secure way of storing the Django secret key.
+	 - [x] Store secret key in .env file.
+- [x] Fix the error with VS Code debug terminal connecting to debugpy.
+	- [x] Fix web's service in docker-compose.override.
  - [x] Build a webcrawler that can lookup desired pieces of information. This is done because every website is different, so some editing may need to be done by the user.
 	 - [x] Install requests and beautifulsoup.
 	 - [x] Determine if you can use the RestAdapter class from your other project.
@@ -43,4 +48,3 @@
 - Django, Postgres and Docker - https://learndjango.com/tutorials/django-docker-and-postgresql-tutorial
 - Django and Celery - https://realpython.com/asynchronous-tasks-with-django-and-celery/
 - Python Crawler - https://www.zenrows.com/blog/web-crawler-python#transitioning-to-a-real-world-web-crawler
-- 
