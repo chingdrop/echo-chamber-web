@@ -1,19 +1,21 @@
-# Scrapy settings for echo_scraper project
-#
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     https://docs.scrapy.org/en/latest/topics/settings.html
-#     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
 import os
 import sys
+import django
+import logging
+from pathlib import Path
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 sys.path.append(os.path.dirname(os.path.abspath('.')))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'echo_chamber.settings'
 
-import django
 django.setup()
+
+LOG_FILE = str(BASE_DIR / 'logs' / 'scrapy.log')
+LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
+LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+LOG_LEVEL = 'INFO'
 
 BOT_NAME = "echo_scraper"
 
