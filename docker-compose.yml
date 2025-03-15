@@ -31,7 +31,7 @@ services:
 
   celery:
     build: ./echo-chamber-web
-    command: ["celery", "-A", "echochamber.celery", "worker", "--loglevel=info"]
+    command: ["celery", "-A", "echo_chamber.celery", "worker", "--loglevel=info"]
     volumes:
       - ./echo-chamber-web:/app
     restart: always

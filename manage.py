@@ -7,7 +7,7 @@ from django.conf import settings
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'echochamber.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'echo_chamber.settings')
 
     if settings.DEBUG:
         if os.environ.get('RUN_MAIN') or os.environ.get('WERKZEUG_RUN_MAIN'):

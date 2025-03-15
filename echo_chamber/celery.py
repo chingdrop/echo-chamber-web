@@ -3,9 +3,9 @@ import os
 from celery import Celery
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "echochamber.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "echo_chamber.settings")
 
-app = Celery("echochamber")
+app = Celery("echo_chamber")
 
 app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()

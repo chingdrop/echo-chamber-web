@@ -1,5 +1,5 @@
 """
-ASGI config for echochamber project.
+ASGI config for echo_chamber project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'echochamber.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'echo_chamber.settings')
 
 application = get_asgi_application()

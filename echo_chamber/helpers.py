@@ -4,6 +4,7 @@ from pathlib import Path
 
 logger = logging.getLogger('django')
 
+
 def save_text_to_file(path: Path, content: str, encoding: str=""):
     """
     Saves the given text content to files in the specified directory.
