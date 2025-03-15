@@ -1,12 +1,20 @@
 
 ## To Do List
+- Possibly change the Crawler app in Django to 'Echo'
 
 ### Infrastructure
 - [ ] Determine if the current docker-compose setup is best for running both Django and Angular projects
 ### Code
-- [ ] Determine the best way of incorporating the initial crawl prompt to the result model
-	- [ ] Find a better name to describe the 'result' object
-- [ ] Fix the problem with the start crawler view not having a queryset
+- [ ] Build a method of starting the web crawling celery task
+- [ ] Implement the scrapy framework inside Django
+	- [x] Start the scrapy project and configure it to work inside django
+	- [ ] Create a new spider class to handle broad crawling
+	- [ ] Create a new pipeline for the saving of results to models
+	- [x] Configure the logging in scrapy
+	- [ ] Create a django management command
+	- [ ] Integrate Scrapy with Celery
+- [x] Completely rebuild the crawler models, serializers and views
+	- [x] Add a model/serializer/viewset for crawl configs, histories and results
 
 ## Completed
 - [x] Better optimize Docker image build.
@@ -42,7 +50,11 @@
 
 ## Rejected
 -  Build out the Articles application. Holds articles, where I post the results of my crawler and analysis engine. 
-	- *This was replaced with the crawler app.*
+	- *The Articles app was replaced with the Crawler app*
+- Refactor the web crawler class to work with django models instead of saving files
+	- Build a method to parse the url passed in the class init
+	- Build a method to use the parsed url when creating the rest adapter
+	- *The WebCrawler app and the use of Beautifulsoup was replaced with scrapy for a more complete framework*
 ## Articles
 - Django Tutorial - https://docs.djangoproject.com/en/5.1/intro/tutorial01/
 - Django, Postgres and Docker - https://learndjango.com/tutorials/django-docker-and-postgresql-tutorial
