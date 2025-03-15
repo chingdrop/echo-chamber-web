@@ -7,6 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath('.')))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'echo_chamber.settings'
+
+import django
+django.setup()
+
 BOT_NAME = "echo_scraper"
 
 SPIDER_MODULES = ["echo_scraper.spiders"]

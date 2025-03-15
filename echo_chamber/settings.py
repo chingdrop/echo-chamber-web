@@ -175,7 +175,7 @@ LOGGING = {
     'handlers': {
         'file': {
             'class': 'logging.FileHandler',
-            'filename': str(Path.cwd() / 'logs' / 'django.log'),
+            'filename': str(BASE_DIR / 'logs' / 'django.log'),
             'level': 'WARNING',
             'formatter': 'verbose',
         },
