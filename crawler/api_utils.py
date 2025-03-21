@@ -82,17 +82,18 @@ class RestAdapter:
         """
         return self._send_request('GET', endpoint, params=params)
 
-    def post(self, endpoint: str, data: dict=None) -> dict:
+    def post(self, endpoint: str, data: dict=None, params: dict=None) -> dict:
         """Make a POST request.
 
         Args:
             endpoint (str): API endpoint
-            data (dict): Data to send in the request body.
+            data (dict): Data to send in the request body
+            params (dict): URL parameters (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('POST', endpoint, data=data)
+        return self._send_request('POST', endpoint, data=data, params=params)
 
     def put(self, endpoint: str, data: dict=None) -> dict:
         """Make a PUT request.
