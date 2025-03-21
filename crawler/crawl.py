@@ -5,18 +5,30 @@ from bs4 import BeautifulSoup
 from celery import shared_task
 
 from crawler.api_utils import RestAdapter
-from echochamber.helpers import delete_files_in_directory, save_text_to_file
+from echo_chamber.helpers import delete_files_in_directory, save_text_to_file
 
 
 logger = logging.getLogger('crawler')
 
 
 class WebCrawler:
-    def __init__(self, logger=logging.getLogger()):
+    def __init__(
+            self,
+            target_url='',
+            logger=None
+    ):
         self.data_dir = Path.cwd() / 'crawler' / 'data'
         delete_files_in_directory(self.data_dir)
-        self.logger = logger
-        self.rest = RestAdapter(logger=logger)
+
+        self.target_url = target_url
+        self.logger = logger or logging.getLogger(__name__)
+        self.rest = RestAdapter(logger=self.logger)
+
+    def _parse_url(self,):
+        pattern = r"^https?:\/\/([a-zA-Z0-9-]+\.)?([a-zA-Z0-9-]+)\.[a-zA-Z]{2,}(?:\:[0-9]+)?(\/[a-zA-Z0-9-\/\?&=.#]*)?$"
+
+    def _create_rest(self,):
+        pass
 
     def get_robot(self,):
         return self.rest.get('/robots.txt')
