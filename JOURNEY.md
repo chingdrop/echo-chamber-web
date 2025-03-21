@@ -1,10 +1,15 @@
 
 ## To Do List
-- Possibly change the Crawler app in Django to 'Echo'
+- [ ] Possibly change the Crawler app in Django to 'Echo'
 
 ### Infrastructure
 - [ ] Determine if the current docker-compose setup is best for running both Django and Angular projects
+- [ ] Configure the Google Cloud Developer Project
 ### Code
+- [ ] Add the use of Google APIs
+	- [ ] Google Trends
+	- [ ] Google Ads Keywords
+- [ ] Add the use of Twitter
 - [ ] Build a method of starting the web crawling celery task
 - [ ] Implement the scrapy framework inside Django
 	- [x] Start the scrapy project and configure it to work inside django
@@ -13,6 +18,9 @@
 	- [x] Configure the logging in scrapy
 	- [ ] Create a django management command
 	- [ ] Integrate Scrapy with Celery
+- [ ] Build a spider for crawling Google SERPs
+	- [ ] Use the found code repo for creating a way of searching google
+	- [ ] Implement my custom Rest Adapter for use in the spider
 - [x] Completely rebuild the crawler models, serializers and views
 	- [x] Add a model/serializer/viewset for crawl configs, histories and results
 
@@ -60,3 +68,7 @@
 - Django, Postgres and Docker - https://learndjango.com/tutorials/django-docker-and-postgresql-tutorial
 - Django and Celery - https://realpython.com/asynchronous-tasks-with-django-and-celery/
 - Python Crawler - https://www.zenrows.com/blog/web-crawler-python#transitioning-to-a-real-world-web-crawler
+- Undercrawler - https://github.com/TeamHG-Memex/undercrawler/blob/master/undercrawler/spiders.py 
+  *Note - Older Link*
+- Google Search on Python - https://github.com/Nv7-GitHub/googlesearch/blob/master/googlesearch/__init__.py
+- 
