@@ -1,6 +1,5 @@
 
 ## To Do List
-- [ ] Possibly change the Crawler app in Django to 'Echo'
 
 ### Infrastructure
 - [ ] Determine if the current docker-compose setup is best for running both Django and Angular projects
@@ -13,14 +12,17 @@
 - [ ] Build a method of starting the web crawling celery task
 - [ ] Implement the scrapy framework inside Django
 	- [x] Start the scrapy project and configure it to work inside django
-	- [ ] Create a new spider class to handle broad crawling
-	- [ ] Create a new pipeline for the saving of results to models
+	- [x] Create a new pipeline for the saving of results to models
 	- [x] Configure the logging in scrapy
+	- [ ] Determine the best way to start the google search spider inside a view
 	- [ ] Create a django management command
 	- [ ] Integrate Scrapy with Celery
 - [ ] Build a spider for crawling Google SERPs
-	- [ ] Use the found code repo for creating a way of searching google
-	- [ ] Implement my custom Rest Adapter for use in the spider
+	- [x] Use the found code repo for creating a way of searching google
+	- [x] Implement my custom Rest Adapter for use in the spider
+	- [x] Build the custom parser
+	- [x] Implement the use items and pipelines
+	- [ ] Test the implementation of all the pieces
 - [x] Completely rebuild the crawler models, serializers and views
 	- [x] Add a model/serializer/viewset for crawl configs, histories and results
 
@@ -63,6 +65,8 @@
 	- Build a method to parse the url passed in the class init
 	- Build a method to use the parsed url when creating the rest adapter
 	- *The WebCrawler app and the use of Beautifulsoup was replaced with scrapy for a more complete framework*
+- Create a new spider class to handle broad crawling
+	- *Crawling Google search results can be a great way to have endless information but only need a simple crawler*
 ## Articles
 - Django Tutorial - https://docs.djangoproject.com/en/5.1/intro/tutorial01/
 - Django, Postgres and Docker - https://learndjango.com/tutorials/django-docker-and-postgresql-tutorial
