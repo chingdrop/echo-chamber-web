@@ -1,4 +1,5 @@
 # --- Custom Ignores --- #
+.vscode/
 data/
 logs/
 crawler/data/
