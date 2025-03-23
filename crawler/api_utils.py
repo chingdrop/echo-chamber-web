@@ -16,6 +16,7 @@ class RestAdapter:
             base_url: str='',
             headers: dict={},
             auth=None,
+            proxies: dict={},
             logger=None
     ):
         self.base_url = base_url
@@ -26,6 +27,8 @@ class RestAdapter:
             self.session.headers.update(headers)
         if auth:
             self.session.auth = auth
+        if proxies:
+            self.session.proxies.update(proxies)
 
     def _send_request(
             self,
