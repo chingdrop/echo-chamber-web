@@ -253,8 +253,8 @@ class GoogleSearch:
                                  cookies=cookies,
                                  timeout=5)
     
-    def _parse_results(self, response_text):
-        soup = BeautifulSoup(response_text, 'html.parser')
+    def _parse_results(self, response):
+        soup = BeautifulSoup(response, 'html.parser')
         result_block = soup.find_all("div", class_="ezO2md")
         for result in result_block:
             link_tag = result.find("a", href=True)
@@ -265,14 +265,18 @@ class GoogleSearch:
                 link = unquote(link_tag["href"].split("&")[0].replace("/url?q=", ""))
                 title = title_tag.text if title_tag else ""
                 description = description_tag.text if description_tag else ""
-                yield GoogleResultItem(link, title, description)
+                yield {
+                    'link': link,
+                    'title': title,
+                    'description': description
+                }
 
-    def search(self, term, results=10, start=0, lang='en', safe='active', region=None, unique=False):
+    def search(self, term, results, safe, start=0, lang='en', region='us', unique=False):
         fetched_results = 0
         fetched_links = set()
 
         while fetched_results < results:
-            response_text = self._request(term, results, start, lang, safe, region)
+            response_text = self._request(term, results, safe, start, lang, region)
             if not response_text:
                 break  # Stop the search if the request fails
 
