@@ -7,7 +7,12 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
+from echo_scraper.items import GoogleResultItem
+
 
 class EchoScraperPipeline:
+
     def process_item(self, item, spider):
+        if isinstance(item, GoogleResultItem):
+            item.save()
         return item

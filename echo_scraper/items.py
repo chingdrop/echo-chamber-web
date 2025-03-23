@@ -5,7 +5,7 @@
 
 from scrapy.item import Item, Field
 
-from crawler.models import CrawlResult
+from crawler.models import GoogleSearchConfig, GoogleSearchResult
 
 
 class GoogleResultItem(Item):
@@ -14,10 +14,12 @@ class GoogleResultItem(Item):
     description = Field()
 
     def save(self):
-        google_result = GoogleResult(
+        config = GoogleSearchResult.objects.get(id=self['config'])
+        result = GoogleSearchResult(
+            config=config,
             link=self['link'],
             title=self['title'],
             description=self['description']
         )
-        google_result.save()
-        return google_result
+        result.save()
+        return result
