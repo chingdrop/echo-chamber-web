@@ -3,11 +3,11 @@ from django.utils import timezone
     
 
 class GoogleSearchConfig(models.Model):
-    term = models.TextField()
+    term = models.CharField(max_length=255)
     results = models.IntegerField()
-    lang = models.CharField(max_length=4)
     safe = models.CharField(max_length=30)
-    region = models.CharField(max_length=30, blank=True, null=True)
+    lang = models.CharField(max_length=4, blank=True, null=True)
+    region = models.CharField(max_length=4, blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now) 
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -18,8 +18,8 @@ class GoogleSearchConfig(models.Model):
 class GoogleSearchResult(models.Model):
     config = models.ForeignKey(GoogleSearchConfig, related_name="results", on_delete=models.CASCADE)
     link = models.URLField()
-    http_status = models.IntegerField()
     title = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField()
     crawled_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
