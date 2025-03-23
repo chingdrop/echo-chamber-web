@@ -34,6 +34,7 @@ class RestAdapter:
             data: dict={},
             params: dict={},
             cookies: dict={},
+            verify: bool=True,
             timeout: int=None
     ) -> dict:
         """Prepare the request to be sent. Send the prepared request and return the response.
@@ -57,7 +58,7 @@ class RestAdapter:
                                cookies=cookies)
         prep_req = self.session.prepare_request(req)
         try:
-            response = self.session.send(prep_req, timeout=timeout)
+            response = self.session.send(prep_req, verify=verify, timeout=timeout)
             response.raise_for_status()
             self.logger.debug(f'Status [{response.status_code}] - {response.reason}')
             if response:
@@ -77,7 +78,14 @@ class RestAdapter:
         except requests.exceptions.RequestException as err:
             self.logger.error(f"An Unexpected Error: {err}")
 
-    def get(self, endpoint: str, params: dict=None, cookies: dict=None, timeout: int=None) -> dict:
+    def get(
+            self,
+            endpoint: str,
+            params: dict=None,
+            cookies: dict=None,
+            verify: bool=True,
+            timeout: int=None
+    ) -> dict:
         """Make a GET request.
 
         Args:
@@ -87,9 +95,19 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('GET', endpoint, params=params, cookies=cookies, timeout=timeout)
+        return self._send_request(
+            'GET', endpoint, params=params, cookies=cookies, verify=verify, timeout=timeout
+        )
 
-    def post(self, endpoint: str, data: dict=None, params: dict=None, cookies: dict=None, timeout: int=None) -> dict:
+    def post(
+            self,
+            endpoint: str,
+            data: dict=None,
+            params: dict=None,
+            cookies: dict=None,
+            verify: bool=True,
+            timeout: int=None
+    ) -> dict:
         """Make a POST request.
 
         Args:
@@ -100,9 +118,18 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('POST', endpoint, data=data, params=params, cookies=cookies, timeout=timeout)
+        return self._send_request(
+            'POST', endpoint, data=data, params=params, cookies=cookies, verify=verify, timeout=timeout
+        )
 
-    def put(self, endpoint: str, data: dict=None, cookies: dict=None, timeout: int=None) -> dict:
+    def put(
+            self,
+            endpoint: str,
+            data: dict=None,
+            cookies: dict=None,
+            verify: bool=True,
+            timeout: int=None
+    ) -> dict:
         """Make a PUT request.
 
         Args:
@@ -112,9 +139,18 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('PUT', endpoint, data=data, cookies=cookies, timeout=timeout)
+        return self._send_request(
+            'PUT', endpoint, data=data, cookies=cookies, verify=verify, timeout=timeout
+        )
 
-    def delete(self, endpoint: str, params: dict=None, cookies: dict=None, timeout: int=None) -> dict:
+    def delete(
+            self,
+            endpoint: str,
+            params: dict=None,
+            cookies: dict=None,
+            verify: bool=True,
+            timeout: int=None
+    ) -> dict:
         """Make a DELETE request.
 
         Args:
@@ -124,4 +160,6 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('DELETE', endpoint, params=params, cookies=cookies, timeout=timeout)
+        return self._send_request(
+            'DELETE', endpoint, params=params, cookies=cookies, verify=verify, timeout=timeout
+        )
