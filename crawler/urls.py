@@ -1,13 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import CrawlConfigViewSet, CrawlHistoryViewSet, CrawlResultViewSet
+from .views import GoogleSearchConfigViewSet, GoogleSearchResultViewSet
 
 
 router = DefaultRouter()
-router.register(r'config', CrawlConfigViewSet)
-router.register(r'history', CrawlHistoryViewSet)
-router.register(r'result', CrawlResultViewSet)
+router.register(r'config', GoogleSearchConfigViewSet)
+router.register(r'result', GoogleSearchResultViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

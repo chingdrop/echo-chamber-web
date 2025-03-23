@@ -1,21 +1,15 @@
 from rest_framework import serializers
 
-from .models import CrawlConfig, CrawlHistory, CrawlResult
+from .models import GoogleSearchConfig, GoogleSearchResult
 
 
-class CrawlConfigSerializer(serializers.ModelSerializer):
+class GoogleSearchConfigSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CrawlConfig
+        model = GoogleSearchConfig
         fields = '__all__'
 
 
-class CrawlHistorySerializer(serializers.ModelSerializer):
+class GoogleSearchResultSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CrawlHistory
-        fields = '__all__'
-
-
-class CrawlResultSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CrawlResult
+        model = GoogleSearchResult
         fields = '__all__'

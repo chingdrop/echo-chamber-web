@@ -1,19 +1,14 @@
 from rest_framework import viewsets
 
-from .models import CrawlConfig, CrawlHistory, CrawlResult
-from .serializers import CrawlConfigSerializer, CrawlHistorySerializer, CrawlResultSerializer
+from .models import GoogleSearchConfig, GoogleSearchResult
+from .serializers import GoogleSearchConfigSerializer, GoogleSearchResultSerializer
 
 
-class CrawlConfigViewSet(viewsets.ModelViewSet):
-    queryset = CrawlConfig.objects.all()
-    serializer_class = CrawlConfigSerializer
+class GoogleSearchConfigViewSet(viewsets.ModelViewSet):
+    queryset = GoogleSearchConfig.objects.all()
+    serializer_class = GoogleSearchConfigSerializer
 
 
-class CrawlHistoryViewSet(viewsets.ModelViewSet):
-    queryset = CrawlHistory.objects.all()
-    serializer_class = CrawlHistorySerializer
-
-
-class CrawlResultViewSet(viewsets.ModelViewSet):
-    queryset = CrawlResult.objects.all()
-    serializer_class = CrawlResultSerializer
+class GoogleSearchResultViewSet(viewsets.ModelViewSet):
+    queryset = GoogleSearchResult.objects.all()
+    serializer_class = GoogleSearchResultSerializer
