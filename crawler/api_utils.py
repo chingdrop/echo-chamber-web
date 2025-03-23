@@ -22,17 +22,18 @@ class RestAdapter:
         self.logger = logger or logging.getLogger(__name__)
 
         self.session = requests.Session()
-        if auth:
-            self.session.auth = auth
         if headers:
             self.session.headers.update(headers)
+        if auth:
+            self.session.auth = auth
 
     def _send_request(
             self,
             method: str,
             endpoint: str,
             params: dict=None,
-            data: dict=None
+            data: dict=None,
+            cookies: dict=None
     ) -> dict:
         """Prepare the request to be sent. Send the prepared request and return the response.
 
@@ -47,7 +48,12 @@ class RestAdapter:
         """
         self.logger.debug(f'Request [{method}] - {self.base_url} {endpoint}')
         url = self.base_url + endpoint
-        req = requests.Request(method, url, headers=self.session.headers, params=params, data=data)
+        req = requests.Request(method,
+                               url,
+                               headers=self.session.headers,
+                               params=params,
+                               data=data,
+                               cookies=cookies)
         prep_req = self.session.prepare_request(req)
         try:
             response = self.session.send(prep_req)
