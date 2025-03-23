@@ -34,7 +34,7 @@ class RestAdapter:
             data: dict={},
             params: dict={},
             cookies: dict={},
-            verify: bool=True,
+            verify: bool | str=True,
             timeout: int=None
     ) -> dict:
         """Prepare the request to be sent. Send the prepared request and return the response.
@@ -43,7 +43,10 @@ class RestAdapter:
             method (str): HTTP method ('GET', 'POST', etc.)
             endpoint (str): API endpoint (e.g., '/users', '/posts')
             params (dict): URL parameters (optional)
-            data (dict): Data to send in the request body. (optional)
+            data (dict): Data to send in the request body (optional)
+            cookies (dict): Data to be used as the cookie in the request (optional)
+            verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
+            timeout (int): Number of seconds to wait for a response (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -83,7 +86,7 @@ class RestAdapter:
             endpoint: str,
             params: dict=None,
             cookies: dict=None,
-            verify: bool=True,
+            verify: bool | str=True,
             timeout: int=None
     ) -> dict:
         """Make a GET request.
@@ -91,6 +94,9 @@ class RestAdapter:
         Args:
             endpoint (str): API endpoint
             params (dict): URL parameters (optional)
+            cookies (dict): Data to be used as the cookie in the request (optional)
+            verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
+            timeout (int): Number of seconds to wait for a response (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -105,7 +111,7 @@ class RestAdapter:
             data: dict=None,
             params: dict=None,
             cookies: dict=None,
-            verify: bool=True,
+            verify: bool | str=True,
             timeout: int=None
     ) -> dict:
         """Make a POST request.
@@ -114,6 +120,9 @@ class RestAdapter:
             endpoint (str): API endpoint
             data (dict): Data to send in the request body
             params (dict): URL parameters (optional)
+            cookies (dict): Data to be used as the cookie in the request (optional)
+            verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
+            timeout (int): Number of seconds to wait for a response (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -127,7 +136,7 @@ class RestAdapter:
             endpoint: str,
             data: dict=None,
             cookies: dict=None,
-            verify: bool=True,
+            verify: bool | str=True,
             timeout: int=None
     ) -> dict:
         """Make a PUT request.
@@ -135,6 +144,9 @@ class RestAdapter:
         Args:
             endpoint (str): API endpoint
             data (dict): Data to send in the request body.
+            cookies (dict): Data to be used as the cookie in the request (optional)
+            verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
+            timeout (int): Number of seconds to wait for a response (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -148,7 +160,7 @@ class RestAdapter:
             endpoint: str,
             params: dict=None,
             cookies: dict=None,
-            verify: bool=True,
+            verify: bool | str=True,
             timeout: int=None
     ) -> dict:
         """Make a DELETE request.
@@ -156,6 +168,9 @@ class RestAdapter:
         Args:
             endpoint (str): API endpoint
             params (dict): URL parameters (optional)
+            cookies (dict): Data to be used as the cookie in the request (optional)
+            verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
+            timeout (int): Number of seconds to wait for a response (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
