@@ -1,5 +1,7 @@
-from django.http import HttpResponse
+import json
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 
 from .models import GoogleSearchConfig, GoogleSearchResult
@@ -8,13 +10,17 @@ from crawler.tasks import run_spider
 
 
 class CrawlView(View):
-    def post(self, request):
-        data = request.POST.get('data')
-        term = data['term']
-        results = data['results']
-        safe = data['safe']
-        lang = data['lang']
-        region = data['region']
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            term = data['term']
+            results = data['results']
+            safe = data['safe']
+            lang = data['lang']
+            region = data['region']
+        except (json.JSONDecodeError, TypeError, ValueError) as e:
+            return HttpResponseBadRequest(f"Invalid JSON data: {e}")
+
         
         config = GoogleSearchConfig.objects.create(
             term=term,
@@ -25,7 +31,7 @@ class CrawlView(View):
         )
 
         run_spider.delay(term, config.id, results, safe, lang, region)
-        return HttpResponse('Scraping started!')
+        return JsonResponse({'status': 'success', 'config_id': config.id})
 
 
 class GoogleSearchConfigViewSet(viewsets.ModelViewSet):

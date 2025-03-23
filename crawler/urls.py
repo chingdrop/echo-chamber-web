@@ -10,5 +10,5 @@ router.register(r'result', GoogleSearchResultViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('run_spider/', CrawlView.as_view, name='run_spider'),
+    path('run_spider/', CrawlView.as_view(), name='run_spider'),
 ]
