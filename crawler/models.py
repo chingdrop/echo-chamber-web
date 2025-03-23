@@ -16,7 +16,7 @@ class GoogleSearchConfig(models.Model):
     
 
 class GoogleSearchResult(models.Model):
-    config = models.ForeignKey(GoogleSearchConfig, related_name="results", on_delete=models.CASCADE)
+    config = models.ForeignKey(GoogleSearchConfig, related_name="search_results", on_delete=models.CASCADE)
     link = models.URLField()
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField()
