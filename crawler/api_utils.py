@@ -3,7 +3,7 @@ import logging
 
 
 class RestAdapter:
-    """Rest adapter class makes interacting with APIs easy.
+    """Rest adapter class uses persistent session and sets default cofiguration.
 
     Args:
         base_url (str): The base URL for the API
@@ -153,6 +153,7 @@ class RestAdapter:
             self,
             endpoint: str,
             data: dict=None,
+            params: dict=None,
             cookies: dict=None,
             verify: bool | str=True,
             timeout: int=None,
@@ -162,7 +163,8 @@ class RestAdapter:
 
         Args:
             endpoint (str): API endpoint
-            data (dict): Data to send in the request body.
+            data (dict): Data to send in the request body
+            params (dict): URL parameters (optional)
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
@@ -174,6 +176,7 @@ class RestAdapter:
         return self._send_request('PUT',
                                   endpoint,
                                   data=data,
+                                  params=params,
                                   cookies=cookies,
                                   verify=verify,
                                   timeout=timeout,
