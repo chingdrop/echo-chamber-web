@@ -1,5 +1,7 @@
 
 ## To Do List
+- [ ] Add documentation on how to get past the CSRF token check in Postman
+	- [ ] Put the documentation in the git repo and the postman workspace
 
 ### Infrastructure
 - [ ] Determine if the current docker-compose setup is best for running both Django and Angular projects
@@ -9,24 +11,27 @@
 	- [ ] Google Trends
 	- [ ] Google Ads Keywords
 - [ ] Add the use of Twitter
-- [ ] Build a method of starting the web crawling celery task
 - [ ] Implement the scrapy framework inside Django
 	- [x] Start the scrapy project and configure it to work inside django
 	- [x] Create a new pipeline for the saving of results to models
 	- [x] Configure the logging in scrapy
-	- [ ] Determine the best way to start the google search spider inside a view
+	- [x] Determine the best way to start the google search spider inside a view
+		- [x] Handle CSRF token issues
 	- [ ] Create a django management command
-	- [ ] Integrate Scrapy with Celery
-- [ ] Build a spider for crawling Google SERPs
+	- [x] Integrate Scrapy with Celery
+- [ ] Fix the Google search spider to properly scrape SERPs
+	- [ ] Fix the ability to save the results as models
+
+## Completed
+- [x] Find the best way of exploring the postgres database
+- [x] Build a spider for crawling Google SERPs
 	- [x] Use the found code repo for creating a way of searching google
 	- [x] Implement my custom Rest Adapter for use in the spider
 	- [x] Build the custom parser
 	- [x] Implement the use items and pipelines
-	- [ ] Test the implementation of all the pieces
+	- [x] Test the implementation of all the pieces
 - [x] Completely rebuild the crawler models, serializers and views
 	- [x] Add a model/serializer/viewset for crawl configs, histories and results
-
-## Completed
 - [x] Better optimize Docker image build.
 - [x] Determine a more secure way of storing the Django secret key.
 	 - [x] Store secret key in .env file.
