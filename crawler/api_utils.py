@@ -35,7 +35,8 @@ class RestAdapter:
             params: dict={},
             cookies: dict={},
             verify: bool | str=True,
-            timeout: int=None
+            timeout: int=None,
+            allow_redirects: bool=True
     ) -> dict:
         """Prepare the request to be sent. Send the prepared request and return the response.
 
@@ -47,6 +48,7 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
+            allow_redirects (bool): Allow HTTP redirects to different URLs
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -61,7 +63,10 @@ class RestAdapter:
                                cookies=cookies)
         prep_req = self.session.prepare_request(req)
         try:
-            response = self.session.send(prep_req, verify=verify, timeout=timeout)
+            response = self.session.send(prep_req,
+                                         verify=verify,
+                                         timeout=timeout,
+                                         allow_redirects=allow_redirects)
             response.raise_for_status()
             self.logger.debug(f'Status [{response.status_code}] - {response.reason}')
             if response:
@@ -87,7 +92,8 @@ class RestAdapter:
             params: dict=None,
             cookies: dict=None,
             verify: bool | str=True,
-            timeout: int=None
+            timeout: int=None,
+            allow_redirects: bool=True
     ) -> dict:
         """Make a GET request.
 
@@ -97,13 +103,18 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
+            allow_redirects (bool): Allow HTTP redirects to different URLs
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request(
-            'GET', endpoint, params=params, cookies=cookies, verify=verify, timeout=timeout
-        )
+        return self._send_request('GET',
+                                  endpoint,
+                                  params=params,
+                                  cookies=cookies,
+                                  verify=verify,
+                                  timeout=timeout,
+                                  allow_redirects=allow_redirects)
 
     def post(
             self,
@@ -112,7 +123,8 @@ class RestAdapter:
             params: dict=None,
             cookies: dict=None,
             verify: bool | str=True,
-            timeout: int=None
+            timeout: int=None,
+            allow_redirects: bool=True
     ) -> dict:
         """Make a POST request.
 
@@ -123,13 +135,19 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
+            allow_redirects (bool): Allow HTTP redirects to different URLs
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request(
-            'POST', endpoint, data=data, params=params, cookies=cookies, verify=verify, timeout=timeout
-        )
+        return self._send_request('POST',
+                                  endpoint,
+                                  data=data,
+                                  params=params,
+                                  cookies=cookies,
+                                  verify=verify,
+                                  timeout=timeout,
+                                  allow_redirects=allow_redirects)
 
     def put(
             self,
@@ -137,7 +155,8 @@ class RestAdapter:
             data: dict=None,
             cookies: dict=None,
             verify: bool | str=True,
-            timeout: int=None
+            timeout: int=None,
+            allow_redirects: bool=True
     ) -> dict:
         """Make a PUT request.
 
@@ -147,13 +166,18 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
+            allow_redirects (bool): Allow HTTP redirects to different URLs
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request(
-            'PUT', endpoint, data=data, cookies=cookies, verify=verify, timeout=timeout
-        )
+        return self._send_request('PUT',
+                                  endpoint,
+                                  data=data,
+                                  cookies=cookies,
+                                  verify=verify,
+                                  timeout=timeout,
+                                  allow_redirects=allow_redirects)
 
     def delete(
             self,
@@ -161,7 +185,8 @@ class RestAdapter:
             params: dict=None,
             cookies: dict=None,
             verify: bool | str=True,
-            timeout: int=None
+            timeout: int=None,
+            allow_redirects: bool=True
     ) -> dict:
         """Make a DELETE request.
 
@@ -171,6 +196,7 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
+            allow_redirects (bool): Allow HTTP redirects to different URLs
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
