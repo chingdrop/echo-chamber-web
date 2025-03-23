@@ -34,7 +34,7 @@ class RestAdapter:
             data: dict={},
             params: dict={},
             cookies: dict={},
-            verify: bool | str=True,
+            verify: bool | str=None,
             timeout: int=None,
             allow_redirects: bool=True
     ) -> dict:
@@ -91,7 +91,7 @@ class RestAdapter:
             endpoint: str,
             params: dict=None,
             cookies: dict=None,
-            verify: bool | str=True,
+            verify: bool | str=None,
             timeout: int=None,
             allow_redirects: bool=True
     ) -> dict:
@@ -122,7 +122,7 @@ class RestAdapter:
             data: dict=None,
             params: dict=None,
             cookies: dict=None,
-            verify: bool | str=True,
+            verify: bool | str=None,
             timeout: int=None,
             allow_redirects: bool=True
     ) -> dict:
@@ -155,7 +155,7 @@ class RestAdapter:
             data: dict=None,
             params: dict=None,
             cookies: dict=None,
-            verify: bool | str=True,
+            verify: bool | str=None,
             timeout: int=None,
             allow_redirects: bool=True
     ) -> dict:
@@ -187,7 +187,7 @@ class RestAdapter:
             endpoint: str,
             params: dict=None,
             cookies: dict=None,
-            verify: bool | str=True,
+            verify: bool | str=None,
             timeout: int=None,
             allow_redirects: bool=True
     ) -> dict:
