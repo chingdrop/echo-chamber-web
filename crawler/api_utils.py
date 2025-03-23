@@ -204,6 +204,10 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request(
-            'DELETE', endpoint, params=params, cookies=cookies, verify=verify, timeout=timeout
-        )
+        return self._send_request('DELETE',
+                                  endpoint,
+                                  params=params,
+                                  cookies=cookies,
+                                  verify=verify,
+                                  timeout=timeout,
+                                  allow_redirects=allow_redirects)
