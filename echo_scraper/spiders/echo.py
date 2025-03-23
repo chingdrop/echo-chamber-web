@@ -1,7 +1,6 @@
 import scrapy
 
 from echo_scraper.google import GoogleSearch
-from crawler.models import GoogleSearchConfig
 from echo_scraper.items import GoogleResultItem
 
 

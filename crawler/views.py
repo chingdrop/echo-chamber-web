@@ -1,7 +1,6 @@
 import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 
 from .models import GoogleSearchConfig, GoogleSearchResult
