@@ -14,38 +14,27 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='CrawlConfig',
+            name='GoogleSearchConfig',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('target_url', models.URLField()),
-                ('crawl_depth', models.PositiveIntegerField(default=1)),
-                ('include_external_links', models.BooleanField(default=False)),
+                ('term', models.CharField(max_length=255)),
+                ('results', models.IntegerField()),
+                ('safe', models.CharField(max_length=30)),
+                ('lang', models.CharField(blank=True, max_length=4, null=True)),
+                ('region', models.CharField(blank=True, max_length=4, null=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
-            name='CrawlHistory',
+            name='GoogleSearchResult',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('started', 'Started'), ('in_progress', 'In-Progress'), ('completed', 'Completed'), ('failed', 'Failed')], max_length=20)),
-                ('started_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('finished_at', models.DateTimeField(blank=True, null=True)),
-                ('errors', models.TextField(blank=True, null=True)),
-                ('crawl_config', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='history', to='crawler.crawlconfig')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='CrawlResult',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('page_url', models.URLField()),
-                ('http_status', models.IntegerField()),
+                ('link', models.URLField()),
                 ('title', models.CharField(blank=True, max_length=255, null=True)),
-                ('content_snippet', models.TextField(blank=True, null=True)),
+                ('description', models.TextField()),
                 ('crawled_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('external_links', models.JSONField(blank=True, default=list)),
-                ('crawl_config', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='results', to='crawler.crawlconfig')),
+                ('config', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='search_results', to='crawler.googlesearchconfig')),
             ],
         ),
     ]
