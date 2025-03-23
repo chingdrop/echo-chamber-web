@@ -267,12 +267,12 @@ class GoogleSearch:
                 description = description_tag.text if description_tag else ""
                 yield GoogleResultItem(link, title, description)
 
-    def search(self, term, results=10, lang='en', start=0, safe='active', region=None, unique=False):
+    def search(self, term, results=10, start=0, lang='en', safe='active', region=None, unique=False):
         fetched_results = 0
         fetched_links = set()
 
         while fetched_results < results:
-            response_text = self._request(term, results, lang, start, safe, region)
+            response_text = self._request(term, results, start, lang, safe, region)
             if not response_text:
                 break  # Stop the search if the request fails
 
