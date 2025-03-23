@@ -269,7 +269,7 @@ class GoogleSearch:
                     'description': description
                 }
 
-    def search(self, term, results, safe, start=0, lang='en', region='us', unique=False):
+    def search(self, term, results, safe, start, lang, region, unique=False):
         fetched_results = 0
         fetched_links = set()
 
