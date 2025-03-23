@@ -5,7 +5,7 @@
 
 from scrapy.item import Item, Field
 
-from crawler.models import GoogleSearchConfig, GoogleSearchResult
+from crawler.models import GoogleSearchResult
 
 
 class GoogleResultItem(Item):
