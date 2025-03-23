@@ -31,9 +31,9 @@ class RestAdapter:
             self,
             method: str,
             endpoint: str,
-            params: dict=None,
-            data: dict=None,
-            cookies: dict=None
+            data: dict={},
+            params: dict={},
+            cookies: dict={}
     ) -> dict:
         """Prepare the request to be sent. Send the prepared request and return the response.
 
@@ -76,7 +76,7 @@ class RestAdapter:
         except requests.exceptions.RequestException as err:
             self.logger.error(f"An Unexpected Error: {err}")
 
-    def get(self, endpoint: str, params: dict=None) -> dict:
+    def get(self, endpoint: str, params: dict=None, cookies: dict=None) -> dict:
         """Make a GET request.
 
         Args:
@@ -86,9 +86,9 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('GET', endpoint, params=params)
+        return self._send_request('GET', endpoint, params=params, cookies=cookies)
 
-    def post(self, endpoint: str, data: dict=None, params: dict=None) -> dict:
+    def post(self, endpoint: str, data: dict=None, params: dict=None, cookies: dict=None) -> dict:
         """Make a POST request.
 
         Args:
@@ -99,9 +99,9 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('POST', endpoint, data=data, params=params)
+        return self._send_request('POST', endpoint, data=data, params=params, cookies=cookies)
 
-    def put(self, endpoint: str, data: dict=None) -> dict:
+    def put(self, endpoint: str, data: dict=None, cookies: dict=None) -> dict:
         """Make a PUT request.
 
         Args:
@@ -111,9 +111,9 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('PUT', endpoint, data=data)
+        return self._send_request('PUT', endpoint, data=data, cookies=cookies)
 
-    def delete(self, endpoint: str, params: dict=None) -> dict:
+    def delete(self, endpoint: str, params: dict=None, cookies: dict=None) -> dict:
         """Make a DELETE request.
 
         Args:
@@ -123,4 +123,4 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('DELETE', endpoint, params=params)
+        return self._send_request('DELETE', endpoint, params=params, cookies=cookies)
