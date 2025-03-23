@@ -5,8 +5,6 @@ from fake_useragent import UserAgent
 from time import sleep
 from urllib.parse import unquote
 
-from echo_scraper.items import GoogleResultItem
-
 
 class RestAdapter:
     """Rest adapter class uses persistent session and sets default cofiguration.

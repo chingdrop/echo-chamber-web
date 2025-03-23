@@ -1,7 +1,6 @@
 import scrapy
-from fake_useragent import UserAgent
 
-from crawler.api_utils import GoogleSearch
+from echo_scraper.google import GoogleSearch
 from crawler.models import GoogleSearchConfig
 from echo_scraper.items import GoogleResultItem
 
