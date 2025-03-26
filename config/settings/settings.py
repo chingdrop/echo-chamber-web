@@ -145,6 +145,8 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# --- Django REST framework settings ---
+# https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -155,7 +157,8 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
 }
 
-# Celery settings
+# --- Celery settings ---
+# https://docs.celeryproject.org/en/stable/django/
 CELERY_BROKER_URL = "redis://redis:6379/0"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
