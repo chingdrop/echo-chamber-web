@@ -16,13 +16,14 @@ class RestAdapter:
         proxies (dict): Dictionary of proxy addresses for HTTP(s) (optional)
         logger (Logger): Custom logger object (optional)
     """
+
     def __init__(
-            self,
-            base_url: str='',
-            headers: dict={},
-            auth=None,
-            proxies: dict={},
-            logger=None
+        self,
+        base_url: str = "",
+        headers: dict = {},
+        auth=None,
+        proxies: dict = {},
+        logger=None,
     ):
         self.base_url = base_url
         self.logger = logger or logging.getLogger(__name__)
@@ -36,15 +37,15 @@ class RestAdapter:
             self.session.proxies.update(proxies)
 
     def _send_request(
-            self,
-            method: str,
-            endpoint: str,
-            data: dict={},
-            params: dict={},
-            cookies: dict={},
-            verify: bool | str=None,
-            timeout: int=None,
-            allow_redirects: bool=True
+        self,
+        method: str,
+        endpoint: str,
+        data: dict = {},
+        params: dict = {},
+        cookies: dict = {},
+        verify: bool | str = None,
+        timeout: int = None,
+        allow_redirects: bool = True,
     ) -> dict:
         """Prepare the request to be sent. Send the prepared request and return the response.
 
@@ -61,27 +62,31 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        self.logger.debug(f'Request [{method}] - {self.base_url} {endpoint}')
+        self.logger.debug(f"Request [{method}] - {self.base_url} {endpoint}")
         url = self.base_url + endpoint
-        req = requests.Request(method,
-                               url,
-                               headers=self.session.headers,
-                               params=params,
-                               data=data,
-                               cookies=cookies)
+        req = requests.Request(
+            method,
+            url,
+            headers=self.session.headers,
+            params=params,
+            data=data,
+            cookies=cookies,
+        )
         prep_req = self.session.prepare_request(req)
         try:
-            response = self.session.send(prep_req,
-                                         verify=verify,
-                                         timeout=timeout,
-                                         allow_redirects=allow_redirects)
+            response = self.session.send(
+                prep_req,
+                verify=verify,
+                timeout=timeout,
+                allow_redirects=allow_redirects,
+            )
             response.raise_for_status()
-            self.logger.debug(f'Status [{response.status_code}] - {response.reason}')
+            self.logger.debug(f"Status [{response.status_code}] - {response.reason}")
             if response:
-                content_type = response.headers.get('Content-Type', '').lower()
-                if 'application/json' in content_type:
+                content_type = response.headers.get("Content-Type", "").lower()
+                if "application/json" in content_type:
                     return response.json()
-                elif 'text/html' in content_type:
+                elif "text/html" in content_type:
                     return response.text
                 else:
                     return response.content
@@ -95,13 +100,13 @@ class RestAdapter:
             self.logger.error(f"An Unexpected Error: {err}")
 
     def get(
-            self,
-            endpoint: str,
-            params: dict=None,
-            cookies: dict=None,
-            verify: bool | str=None,
-            timeout: int=None,
-            allow_redirects: bool=True
+        self,
+        endpoint: str,
+        params: dict = None,
+        cookies: dict = None,
+        verify: bool | str = None,
+        timeout: int = None,
+        allow_redirects: bool = True,
     ) -> dict:
         """Make a GET request.
 
@@ -116,23 +121,25 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('GET',
-                                  endpoint,
-                                  params=params,
-                                  cookies=cookies,
-                                  verify=verify,
-                                  timeout=timeout,
-                                  allow_redirects=allow_redirects)
+        return self._send_request(
+            "GET",
+            endpoint,
+            params=params,
+            cookies=cookies,
+            verify=verify,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
 
     def post(
-            self,
-            endpoint: str,
-            data: dict=None,
-            params: dict=None,
-            cookies: dict=None,
-            verify: bool | str=None,
-            timeout: int=None,
-            allow_redirects: bool=True
+        self,
+        endpoint: str,
+        data: dict = None,
+        params: dict = None,
+        cookies: dict = None,
+        verify: bool | str = None,
+        timeout: int = None,
+        allow_redirects: bool = True,
     ) -> dict:
         """Make a POST request.
 
@@ -148,24 +155,26 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('POST',
-                                  endpoint,
-                                  data=data,
-                                  params=params,
-                                  cookies=cookies,
-                                  verify=verify,
-                                  timeout=timeout,
-                                  allow_redirects=allow_redirects)
+        return self._send_request(
+            "POST",
+            endpoint,
+            data=data,
+            params=params,
+            cookies=cookies,
+            verify=verify,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
 
     def put(
-            self,
-            endpoint: str,
-            data: dict=None,
-            params: dict=None,
-            cookies: dict=None,
-            verify: bool | str=None,
-            timeout: int=None,
-            allow_redirects: bool=True
+        self,
+        endpoint: str,
+        data: dict = None,
+        params: dict = None,
+        cookies: dict = None,
+        verify: bool | str = None,
+        timeout: int = None,
+        allow_redirects: bool = True,
     ) -> dict:
         """Make a PUT request.
 
@@ -181,23 +190,25 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('PUT',
-                                  endpoint,
-                                  data=data,
-                                  params=params,
-                                  cookies=cookies,
-                                  verify=verify,
-                                  timeout=timeout,
-                                  allow_redirects=allow_redirects)
+        return self._send_request(
+            "PUT",
+            endpoint,
+            data=data,
+            params=params,
+            cookies=cookies,
+            verify=verify,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
 
     def delete(
-            self,
-            endpoint: str,
-            params: dict=None,
-            cookies: dict=None,
-            verify: bool | str=None,
-            timeout: int=None,
-            allow_redirects: bool=True
+        self,
+        endpoint: str,
+        params: dict = None,
+        cookies: dict = None,
+        verify: bool | str = None,
+        timeout: int = None,
+        allow_redirects: bool = True,
     ) -> dict:
         """Make a DELETE request.
 
@@ -212,48 +223,58 @@ class RestAdapter:
         Returns:
             dict: JSON serialized response body or None if an error occurs.
         """
-        return self._send_request('DELETE',
-                                  endpoint,
-                                  params=params,
-                                  cookies=cookies,
-                                  verify=verify,
-                                  timeout=timeout,
-                                  allow_redirects=allow_redirects)
-    
+        return self._send_request(
+            "DELETE",
+            endpoint,
+            params=params,
+            cookies=cookies,
+            verify=verify,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+
 
 class GoogleSearch:
     def __init__(self, proxy=None, logger=None):
         ua = UserAgent()
         headers = {
-            'User-Agent': ua.chrome,
-            'Accept': "*/*",
+            "User-Agent": ua.chrome,
+            "Accept": "*/*",
         }
-        proxies = {"https": proxy, "http": proxy} \
-            if proxy and (proxy.startswith("https") or proxy.startswith("http") or proxy.startswith("socks5")) \
+        proxies = (
+            {"https": proxy, "http": proxy}
+            if proxy
+            and (
+                proxy.startswith("https")
+                or proxy.startswith("http")
+                or proxy.startswith("socks5")
+            )
             else None
+        )
         self.rest = RestAdapter(headers=headers, proxies=proxies, logger=logger)
         self.logger = logger or logging.getLogger(__name__)
-        
-    def _request(self, term: str, results: int, lang: str, start: int, safe: str, region: str):
+
+    def _request(
+        self, term: str, results: int, lang: str, start: int, safe: str, region: str
+    ):
         params = {
-            'q': term,
-            'num': results + 2,
-            'hl': lang,
-            'start': start,
-            'safe': safe,
-            'gl': region
+            "q": term,
+            "num": results + 2,
+            "hl": lang,
+            "start": start,
+            "safe": safe,
+            "gl": region,
         }
         cookies = {
-            'CONSENT': 'PENDING+987',
-            'SOCS': 'CAESHAgBEhIaAB',
+            "CONSENT": "PENDING+987",
+            "SOCS": "CAESHAgBEhIaAB",
         }
-        return self.rest.get('https://www.google.com/search',
-                                 params=params,
-                                 cookies=cookies,
-                                 timeout=5)
-    
+        return self.rest.get(
+            "https://www.google.com/search", params=params, cookies=cookies, timeout=5
+        )
+
     def _parse_results(self, response):
-        soup = BeautifulSoup(response, 'html.parser')
+        soup = BeautifulSoup(response, "html.parser")
         result_block = soup.find_all("div", class_="ezO2md")
         for result in result_block:
             link_tag = result.find("a", href=True)
@@ -264,11 +285,7 @@ class GoogleSearch:
                 link = unquote(link_tag["href"].split("&")[0].replace("/url?q=", ""))
                 title = title_tag.text if title_tag else ""
                 description = description_tag.text if description_tag else ""
-                yield {
-                    'link': link,
-                    'title': title,
-                    'description': description
-                }
+                yield {"link": link, "title": title, "description": description}
 
     def search(self, term, results, safe, start, lang, region, unique=False):
         fetched_results = 0
@@ -293,7 +310,9 @@ class GoogleSearch:
                     return  # Stop if we have fetched the desired number of results
 
             if new_results == 0:
-                logging.info(f"Only {fetched_results} results found for query requiring {results} results.")
+                logging.info(
+                    f"Only {fetched_results} results found for query requiring {results} results."
+                )
                 break  # Break the loop if no new results were found in this iteration
 
             start += 10

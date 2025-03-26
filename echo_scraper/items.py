@@ -14,12 +14,12 @@ class GoogleResultItem(Item):
     description = Field()
 
     def save(self):
-        config = GoogleSearchResult.objects.get(id=self['config'])
+        config = GoogleSearchResult.objects.get(id=self["config"])
         result = GoogleSearchResult(
             config=config,
-            link=self['link'],
-            title=self['title'],
-            description=self['description']
+            link=self["link"],
+            title=self["title"],
+            description=self["description"],
         )
         result.save()
         return result
