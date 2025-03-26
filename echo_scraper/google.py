@@ -13,6 +13,7 @@ class RestAdapter:
         base_url (str): The base URL for the API
         headers (dict): Default headers (optional)
         auth (Any): Authentication information (optional)
+        proxies (dict): Dictionary of proxy addresses for HTTP(s) (optional)
         logger (Logger): Custom logger object (optional)
     """
     def __init__(
@@ -55,7 +56,7 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
-            allow_redirects (bool): Allow HTTP redirects to different URLs
+            allow_redirects (bool): Allow HTTP redirects to different URLs (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -110,7 +111,7 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
-            allow_redirects (bool): Allow HTTP redirects to different URLs
+            allow_redirects (bool): Allow HTTP redirects to different URLs (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -142,7 +143,7 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
-            allow_redirects (bool): Allow HTTP redirects to different URLs
+            allow_redirects (bool): Allow HTTP redirects to different URLs (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -175,7 +176,7 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
-            allow_redirects (bool): Allow HTTP redirects to different URLs
+            allow_redirects (bool): Allow HTTP redirects to different URLs (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
@@ -206,7 +207,7 @@ class RestAdapter:
             cookies (dict): Data to be used as the cookie in the request (optional)
             verify (bool | str): Boolean whether to enforce SSL authentication, or supply a certificate to use (optional)
             timeout (int): Number of seconds to wait for a response (optional)
-            allow_redirects (bool): Allow HTTP redirects to different URLs
+            allow_redirects (bool): Allow HTTP redirects to different URLs (optional)
 
         Returns:
             dict: JSON serialized response body or None if an error occurs.
