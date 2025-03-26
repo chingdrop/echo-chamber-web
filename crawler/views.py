@@ -2,10 +2,11 @@ import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views import View
 from rest_framework import viewsets
+from celery import chord
 
 from .models import GoogleSearchConfig, GoogleSearchResult
 from .serializers import GoogleSearchConfigSerializer, GoogleSearchResultSerializer
-from crawler.tasks import run_spider
+from crawler.tasks import google_search_task, process_search_results_task
 
 
 class CrawlView(View):
@@ -24,7 +25,11 @@ class CrawlView(View):
             term=term, results=results, safe=safe, lang=lang, region=region
         )
 
-        run_spider.delay(term, config.id, results, safe, lang, region)
+        # Create a chord with the google_search_task and a callback to process the results
+        search_chord = chord(
+            google_search_task.s(term, results, safe, 0, lang, region) for _ in range(1)
+        )(process_search_results_task.s(config.id))
+
         return JsonResponse({"status": "success", "config_id": config.id})
 
 
