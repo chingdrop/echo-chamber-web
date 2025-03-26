@@ -7,20 +7,11 @@
 - [ ] Determine if the current docker-compose setup is best for running both Django and Angular projects
 - [ ] Configure the Google Cloud Developer Project
 ### Code
+- [ ] Implement the use of celery and the GoogleSearch class to replicate Scrapy.
 - [ ] Add the use of Google APIs
 	- [ ] Google Trends
 	- [ ] Google Ads Keywords
 - [ ] Add the use of Twitter
-- [ ] Implement the scrapy framework inside Django
-	- [x] Start the scrapy project and configure it to work inside django
-	- [x] Create a new pipeline for the saving of results to models
-	- [x] Configure the logging in scrapy
-	- [x] Determine the best way to start the google search spider inside a view
-		- [x] Handle CSRF token issues
-	- [ ] Create a django management command
-	- [x] Integrate Scrapy with Celery
-- [ ] Fix the Google search spider to properly scrape SERPs
-	- [ ] Fix the ability to save the results as models
 
 ## Completed
 - [x] Find the best way of exploring the postgres database
@@ -72,6 +63,15 @@
 	- *The WebCrawler app and the use of Beautifulsoup was replaced with scrapy for a more complete framework*
 - Create a new spider class to handle broad crawling
 	- *Crawling Google search results can be a great way to have endless information but only need a simple crawler*
+- Implement the scrapy framework inside Django
+	- Start the scrapy project and configure it to work inside django
+	- Create a new pipeline for the saving of results to models
+	- Configure the logging in scrapy
+	- Determine the best way to start the google search spider inside a view
+		- Handle CSRF token issues
+	- Create a django management command
+	- Integrate Scrapy with Celery
+	- *Removed Scrapy because I found it easier to accomplish what I need using Beautiful soup and celery*
 ## Articles
 - Django Tutorial - https://docs.djangoproject.com/en/5.1/intro/tutorial01/
 - Django, Postgres and Docker - https://learndjango.com/tutorials/django-docker-and-postgresql-tutorial
