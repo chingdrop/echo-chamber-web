@@ -7,7 +7,7 @@
 # useful for handling different item types with a single interface
 # from itemadapter import ItemAdapter
 
-from echo_scraper.items import GoogleResultItem
+from config.scrapy.items import GoogleResultItem
 
 
 class EchoScraperPipeline:

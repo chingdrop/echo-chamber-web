@@ -1,7 +1,7 @@
 import scrapy
 
-from echo_scraper.google import GoogleSearch
-from echo_scraper.items import GoogleResultItem
+from config.scrapy.google import GoogleSearch
+from config.scrapy.items import GoogleResultItem
 
 
 class GoogleSearchSpider(scrapy.Spider):
