@@ -99,14 +99,15 @@ def google_search_task(term, results, safe, start, lang, region, unique=False):
     goog = GoogleSearch()
     return list(goog.search(term, results, safe, start, lang, region, unique))
 
+
 @shared_task
 def process_search_results_task(results, config_id):
     config = GoogleSearchConfig.objects.get(id=config_id)
     for result in results:
         GoogleSearchResult.objects.create(
             config=config,
-            link=result['link'],
-            title=result['title'],
-            description=result['description']
+            link=result["link"],
+            title=result["title"],
+            description=result["description"],
         )
     return {"status": "completed", "config_id": config_id}
